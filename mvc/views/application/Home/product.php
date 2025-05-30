@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['submit'])) {
     $productId = $data['pid'];
     $name = $_POST['name'];
@@ -9,16 +10,32 @@ if (isset($_POST['submit'])) {
     date_default_timezone_set("Asia/Bangkok");
     $datetime = date("Y-m-d H:i:s");
 
-
-    if ($name == null || $email == null || $comment == null) {
+    if (empty($name) || empty($comment)) {
         echo '<script>alert("Vui lòng điền đầy đủ thông tin")</script>';
     } else {
-        $sql = "INSERT INTO _comment (product_id, customer_id, cmt_time, cmt) VALUES (N'$productId',N'$customer', N'$datetime',N'$comment')";
-        if (($data["commentModal"]->con)->query($sql)) {
-            echo "<script>alert('Thêm đánh giá thành công!')</script>";
+        // Kiểm tra xem khách hàng đã đánh giá sản phẩm này chưa
+        $commentModal = $data["commentModal"];
+        $checkSql = "SELECT COUNT(*) as count FROM _comment WHERE product_id = ? AND customer_id = ?";
+        $checkStmt = $commentModal->con->prepare($checkSql);
+        $checkStmt->bind_param("ii", $productId, $customer);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row['count'] == 0) {
+            $sql = "INSERT INTO _comment (product_id, customer_id, cmt_time, cmt) VALUES (?, ?, ?, ?)";
+            $stmt = $commentModal->con->prepare($sql);
+            $stmt->bind_param("iiss", $productId, $customer, $datetime, $comment);
+            if ($stmt->execute()) {
+                echo "<script>alert('Thêm đánh giá thành công!'); window.location.reload();</script>";
+            } else {
+                echo "<script>alert('Thêm đánh giá thất bại: " . addslashes($commentModal->con->error) . "');</script>";
+            }
+            $stmt->close();
         } else {
-            echo "<script>alert('Thêm đánh giá thất bại')</script>";
+            echo "<script>alert('Bạn đã đánh giá sản phẩm này!');</script>";
         }
+        $checkStmt->close();
     }
 }
 ?>
@@ -174,69 +191,77 @@ if (isset($_POST['submit'])) {
                             </div>
 
                             <div class="detail-description">
-                                <h2>Đánh giá sản phẩm</h2>
-                                <ul class="uk-comment-list">
-                                    <li>
-                                        <article class="uk-comment">
-                                            <header class="uk-comment-header">
-                                                <div class="uk-grid-small uk-grid-divider" data-uk-grid>
-                                                    <div class="uk-width-auto@s"><img class="uk-comment-avatar" src="../../../web222/public/assets/img/pages/home/fp1.png" alt>
-                                                    </div>
-                                                    <div class="uk-width-expand@s">
-                                                        <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
-                                                            <h4 class="uk-comment-title uk-margin-remove">Nguyễn Văn A</h4>
-                                                            <span class="uk-text-meta uk-margin-small-left">August 20,
-                                                                2021</span>
-                                                        </div>
-                                                        <div class="uk-comment-body">
-                                                            <p>Chất lượng rất tuyệt vời</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </header>
-                                        </article>
-                                    </li>
-                                    <li>
-                                        <article class="uk-comment">
-                                            <header class="uk-comment-header">
-                                                <div class="uk-grid-small uk-grid-divider" data-uk-grid>
-                                                    <div class="uk-width-auto@s"><img class="uk-comment-avatar" src="../../../web222/public/assets/img/pages/home/fp2.png" alt>
-                                                    </div>
-                                                    <div class="uk-width-expand@s">
-                                                        <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
-                                                            <h4 class="uk-comment-title uk-margin-remove">Nguyễn Thị B</h4>
-                                                            <span class="uk-text-meta uk-margin-small-left">August 20,
-                                                                2020</span>
-                                                        </div>
-                                                        <div class="uk-comment-body">
-                                                            <p>Tối rất thích</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </header>
-                                        </article>
-                                    </li>
-                                </ul>
-                                <div class="block-form uk-margin-medium-top">
-                                    <div class="section-title">
-                                        <div class="uk-h2">Để lại đánh giá của bạn</div>
+    <h2>Đánh giá sản phẩm</h2>
+    
+    <?php
+    // Truy vấn danh sách comment từ database
+    $productId = $data['pid']; // Lấy product_id từ dữ liệu
+    $commentModal = $data["commentModal"];
+    $sql = "SELECT cmt_time, cmt, customer_id FROM _comment WHERE product_id = ? ORDER BY cmt_time DESC";
+    $stmt = $commentModal->con->prepare($sql);
+    $stmt->bind_param("i", $productId);
+    $stmt->execute();
+    $comments = $stmt->get_result();
+
+    if ($comments && $comments->num_rows > 0) {
+    ?>
+        <ul class="uk-comment-list">
+            <?php
+            while ($comment = $comments->fetch_assoc()) {
+                // Lấy thông tin comment
+                $comment_time = $comment['cmt_time'];
+                $comment_text = $comment['cmt'];
+                $customer_id = $comment['customer_id'];
+                
+                // Giả sử tên khách hàng dựa trên customer_id (thay bằng truy vấn nếu có bảng customer)
+                $customer_name = "Khách hàng #" . $customer_id; // Thay bằng tên thật nếu có bảng customer
+            ?>
+                <li>
+                    <article class="uk-comment">
+                        <header class="uk-comment-header">
+                            <div class="uk-grid-small uk-grid-divider" data-uk-grid>
+                                <div class="uk-width-auto@s">
+                                    <img class="uk-comment-avatar" src="../../../web222/public/assets/img/pages/home/fp1.png" alt="">
+                                </div>
+                                <div class="uk-width-expand@s">
+                                    <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
+                                        <h4 class="uk-comment-title uk-margin-remove"><?php echo htmlspecialchars($customer_name); ?></h4>
+                                        <span class="uk-text-meta uk-margin-small-left"><?php echo date("F j, Y", strtotime($comment_time)); ?></span>
                                     </div>
-                                    <div class="section-content">
-                                        <form action="#!" method="POST">
-                                            <div class="uk-grid uk-grid-small uk-child-width-1-2@s" data-uk-grid>
-                                                <div><input class="uk-input uk-form-large" type="text" name="name" placeholder="Tên *"></div>
-                                                <div class="uk-width-1-1"><textarea class="uk-textarea uk-form-large" name="feedback" placeholder="Đánh giá *"></textarea></div>
-                                                <div><button class="uk-button uk-button-large" name='submit' type="submit">Gửi đánh giá</button></div>
-                                            </div>
-                                        </form>
+                                    <div class="uk-comment-body">
+                                        <p><?php echo htmlspecialchars($comment_text); ?></p>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </header>
+                    </article>
+                </li>
+            <?php
+            }
+            ?>
+        </ul>
+    <?php
+    } else {
+        echo "<p>Chưa có đánh giá nào cho sản phẩm này.</p>";
+    }
+    $stmt->close();
+    ?>
+
+<div class="block-form uk-margin-medium-top">
+    <div class="section-title">
+        <div class="uk-h2">Để lại đánh giá của bạn</div>
+    </div>
+    <div class="section-content">
+        <form id="comment-form" method="POST">
+            <input type="hidden" name="pid" value="<?php echo $data['pid']; ?>">
+            <div class="uk-grid uk-grid-small uk-child-width-1-2@s" data-uk-grid>
+                <div><input class="uk-input uk-form-large" type="text" name="name" placeholder="Tên *" required></div>
+                <div class="uk-width-1-1"><textarea class="uk-textarea uk-form-large" name="feedback" placeholder="Đánh giá *" required></textarea></div>
+                <div><button class="uk-button uk-button-large" name="submit" type="submit">Gửi đánh giá</button></div>
             </div>
+        </form>
+    </div>
+</div>
 
         <?php
         }
