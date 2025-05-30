@@ -31,8 +31,18 @@
             //load modal with ID
             $product = $this->modal("ProductModal"); 
             $comment = $this->modal("CommentModal");
-            $layout = $this->view("layouts/application", ["page"=>"application/home/product", "header"=>"shared/header", "footer"=>"shared/footer", "product"=>$product->getProductWithID($id), "commentModal" => $comment, "pid" => $id]);
-            // echo $layout;
+           // Lấy sản phẩm và comment
+            $productData = $product->getProductWithID($id);
+            $comments = $comment->getCommentsByProductId($id);
+            $layout = $this->view("layouts/application", [
+            "page" => "application/home/product",
+            "header" => "shared/header",
+            "footer" => "shared/footer",
+            "product" => $productData,
+            "comments" => $comments,
+            "commentModal" => $comment,
+            "pid" => $id
+             ]);
         }
 
         function contact(){
