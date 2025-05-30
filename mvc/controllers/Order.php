@@ -13,5 +13,11 @@
             $order = $this->modal("OrderModal");
             $layout = $this->view("layouts/admin", ["admin_page"=>"admin/orders/delete", "admin_header"=>"shared/admin_header", "admin_sidebar"=>"shared/admin_sidebar", "order"=>$order->getOrderByID($id), "id" =>$id, "orderModal" => $order]); 
         }
+<<<<<<< HEAD
     }
+=======
+        
+    }
+    
+>>>>>>> 69c3407 (nut dat hang)
 ?>

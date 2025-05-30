@@ -19,4 +19,8 @@
             $layout = $this->view("layouts/admin", ["admin_page"=>"admin/comments/delete", "admin_header"=>"shared/admin_header", "admin_sidebar"=>"shared/admin_sidebar", "comment"=>$comment->getComment($pid,$cid), "pid"=>$pid,"cid"=>$cid,"commentModal"=>$comment]); 
         }
     }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 69c3407 (nut dat hang)

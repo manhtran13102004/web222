@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69c3407 (nut dat hang)
 if (isset($_POST['submit'])) {
     $productId = $data['pid'];
     $name = $_POST['name'];
@@ -10,6 +13,7 @@ if (isset($_POST['submit'])) {
     date_default_timezone_set("Asia/Bangkok");
     $datetime = date("Y-m-d H:i:s");
 
+<<<<<<< HEAD
     if (empty($name) || empty($comment)) {
         echo '<script>alert("Vui lòng điền đầy đủ thông tin")</script>';
     } else {
@@ -36,6 +40,18 @@ if (isset($_POST['submit'])) {
             echo "<script>alert('Bạn đã đánh giá sản phẩm này!');</script>";
         }
         $checkStmt->close();
+=======
+
+    if ($name == null || $email == null || $comment == null) {
+        echo '<script>alert("Vui lòng điền đầy đủ thông tin")</script>';
+    } else {
+        $sql = "INSERT INTO _comment (product_id, customer_id, cmt_time, cmt) VALUES (N'$productId',N'$customer', N'$datetime',N'$comment')";
+        if (($data["commentModal"]->con)->query($sql)) {
+            echo "<script>alert('Thêm đánh giá thành công!')</script>";
+        } else {
+            echo "<script>alert('Thêm đánh giá thất bại')</script>";
+        }
+>>>>>>> 69c3407 (nut dat hang)
     }
 }
 ?>
@@ -191,6 +207,7 @@ if (isset($_POST['submit'])) {
                             </div>
 
                             <div class="detail-description">
+<<<<<<< HEAD
     <h2>Đánh giá sản phẩm</h2>
     
     <?php
@@ -262,6 +279,71 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 </div>
+=======
+                                <h2>Đánh giá sản phẩm</h2>
+                                <ul class="uk-comment-list">
+                                    <li>
+                                        <article class="uk-comment">
+                                            <header class="uk-comment-header">
+                                                <div class="uk-grid-small uk-grid-divider" data-uk-grid>
+                                                    <div class="uk-width-auto@s"><img class="uk-comment-avatar" src="../../../web222/public/assets/img/pages/home/fp1.png" alt>
+                                                    </div>
+                                                    <div class="uk-width-expand@s">
+                                                        <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
+                                                            <h4 class="uk-comment-title uk-margin-remove">Nguyễn Văn A</h4>
+                                                            <span class="uk-text-meta uk-margin-small-left">August 20,
+                                                                2021</span>
+                                                        </div>
+                                                        <div class="uk-comment-body">
+                                                            <p>Chất lượng rất tuyệt vời</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </header>
+                                        </article>
+                                    </li>
+                                    <li>
+                                        <article class="uk-comment">
+                                            <header class="uk-comment-header">
+                                                <div class="uk-grid-small uk-grid-divider" data-uk-grid>
+                                                    <div class="uk-width-auto@s"><img class="uk-comment-avatar" src="../../../web222/public/assets/img/pages/home/fp2.png" alt>
+                                                    </div>
+                                                    <div class="uk-width-expand@s">
+                                                        <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
+                                                            <h4 class="uk-comment-title uk-margin-remove">Nguyễn Thị B</h4>
+                                                            <span class="uk-text-meta uk-margin-small-left">August 20,
+                                                                2020</span>
+                                                        </div>
+                                                        <div class="uk-comment-body">
+                                                            <p>Tối rất thích</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </header>
+                                        </article>
+                                    </li>
+                                </ul>
+                                <div class="block-form uk-margin-medium-top">
+                                    <div class="section-title">
+                                        <div class="uk-h2">Để lại đánh giá của bạn</div>
+                                    </div>
+                                    <div class="section-content">
+                                        <form action="#!" method="POST">
+                                            <div class="uk-grid uk-grid-small uk-child-width-1-2@s" data-uk-grid>
+                                                <div><input class="uk-input uk-form-large" type="text" name="name" placeholder="Tên *"></div>
+                                                <div class="uk-width-1-1"><textarea class="uk-textarea uk-form-large" name="feedback" placeholder="Đánh giá *"></textarea></div>
+                                                <div><button class="uk-button uk-button-large" name='submit' type="submit">Gửi đánh giá</button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+>>>>>>> 69c3407 (nut dat hang)
 
         <?php
         }
@@ -451,4 +533,8 @@ if (isset($_POST['submit'])) {
     #banner {
         background-image: url('<?php echo $background; ?>');
     }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 69c3407 (nut dat hang)

@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.+)$ index.php?url=$1
+=======
+RewriteEngine On
+RewriteBase /web222/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+>>>>>>> 69c3407 (nut dat hang)

@@ -141,4 +141,28 @@ function ChangeUI() {
     }
 }
 
+<<<<<<< HEAD
+=======
+function getInfoAndRedirect() {
+    const oid = Date.now();
+    const uid = 101;
+    const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    const name = encodeURIComponent("hhhaa ohahsd");
+    const email = encodeURIComponent("binn23102003@gmail.com");
+    const phone = encodeURIComponent("8432482384");
+    const address = encodeURIComponent("fsdfsafdsf");
+    const price = 15010;
+
+    const url = `http://localhost:8080/web222/home/success?oid=${oid}&uid=${uid}&date=${encodeURIComponent(date)}&price=${price}&name=${name}&email=${email}&phone=${phone}&address=${address}`;
+
+    // Xem trước URL
+    console.log("🔗 URL:", url);
+
+    window.location.href = url;
+}
+
+
+
+>>>>>>> 69c3407 (nut dat hang)
 ChangeUI();

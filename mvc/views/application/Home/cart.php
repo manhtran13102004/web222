@@ -155,6 +155,21 @@
 
 
                 <div>
+<<<<<<< HEAD
+=======
+                    <!-- Thêm vào cuối file, trước </div> hoặc </body> -->
+                        <form id="orderForm" method="POST" action="http://localhost:8080/web222/home/success" style="display:none;">
+                            <input type="hidden" name="oid" id="oid">
+                            <input type="hidden" name="uid" id="uid">
+                            <input type="hidden" name="date" id="date">
+                            <input type="hidden" name="price" id="price">
+                            <input type="hidden" name="name" id="order_name">
+                            <input type="hidden" name="email" id="order_email">
+                            <input type="hidden" name="phone" id="order_phone">
+                            <input type="hidden" name="address" id="order_address">
+                            <input type="hidden" name="products" id="order_products">
+                        </form>
+>>>>>>> 69c3407 (nut dat hang)
                     <a id="page-cart__control-btn" class="uk-button" href="#" onclick="getInfo()">Trở về mua sắm</a>
                 </div>
             </div>
@@ -373,6 +388,48 @@ let selectedItem = {
             slotName[1].style.display = 'none';
         }
     }
+<<<<<<< HEAD
 
+=======
+    function getInfo(){
+    var btn = document.getElementById('page-cart__control-btn');
+    const text = btn.innerHTML;
+    if (text=="Đặt hàng"){
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var address = document.getElementById('address').value;
+        var radios = document.getElementsByTagName('input');
+        var checkRadio = false;
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) checkRadio = true;
+        }
+
+        if ((name == "" || email =="" || phone =="" || address=="" || !checkRadio)){
+            alert("Vui lòng nhập đầy đủ thông tin nhận hàng!");
+        }
+        else{
+            if (confirm("Bạn muốn đặt đơn hàng này ?")) {
+                const orderID = Math.floor(Math.random() * 100000000);
+                let userID = 101; // Gán mặc định customer_id là 101
+                var today = new Date();
+                today.setHours( today.getHours()+(today.getTimezoneOffset()/-60) );
+                const datetime = today.toJSON().slice(0, 19).replace('T', ' '); 
+                // Gán dữ liệu vào form ẩn
+                document.getElementById('oid').value = orderID;
+                document.getElementById('uid').value = userID;
+                document.getElementById('date').value = datetime;
+                document.getElementById('price').value = totalPrice;
+                document.getElementById('order_name').value = name;
+                document.getElementById('order_email').value = email;
+                document.getElementById('order_phone').value = phone;
+                document.getElementById('order_address').value = address;
+                document.getElementById('order_products').value = localStorage.getItem('productItem');
+                document.getElementById('orderForm').submit();
+            }
+        }
+    }
+}
+>>>>>>> 69c3407 (nut dat hang)
     ChangeUI();
 </script>
