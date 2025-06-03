@@ -26,16 +26,16 @@
                                 <li <?php if (!isset($_SESSION['category_id'])) echo "class='uk-active'" ?> data-uk-filter-control="">
                                     <a onclick="document.getElementById('category-page').innerHTML = ''" href="#">Tất cả</a>
                                 </li>
-                                <li <?php if ($_SESSION['category_id'] == 1) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='1']">
+                                <li <?php if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == 1) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='1']">
                                     <a onclick="document.getElementById('category-page').innerHTML = ': Thực phẩm'" href="#">Thực phẩm</a>
                                 </li>
-                                <li <?php if ($_SESSION['category_id'] == 2) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='2']">
+                                <li <?php if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == 2) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='2']">
                                     <a onclick="document.getElementById('category-page').innerHTML = ': Nước ngọt'" href="#">Nước ngọt</a>
                                 </li>
-                                <li <?php if ($_SESSION['category_id'] == 3) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='3']">
+                                <li <?php if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == 3) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='3']">
                                     <a onclick="document.getElementById('category-page').innerHTML = ': Bánh kẹo'" href="#">Bánh kẹo</a>
                                 </li>
-                                <li <?php if ($_SESSION['category_id'] == 4) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='4']">
+                                <li <?php if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == 4) echo "class='uk-active'" ?> data-uk-filter-control="[data-tags='4']">
                                     <a onclick="document.getElementById('category-page').innerHTML = ': Trái cây'" href="#">Trái cây</a>
                                 </li>
 

@@ -78,38 +78,41 @@
         </div>
 
         <div class="uk-container">
-            
-                <div class="block-form uk-margin-medium-top">
-                    <div class="section-title">
-                      <div class="uk-h2">Chỉnh sửa thông tin cá nhân</div>
-                    </div>
-                    <div class="section-content">
-                        <form action="" method='POST'>
-                            <span><b class="form_title">User ID: </b> <?php echo $_SESSION['id']?></span>  <br><br>
-                            <label class="form_title" for="name">Tên khách hàng:</label>
-                            <div><input class="uk-input uk-form-large" name='name' type="text" id='name' placeholder="<?php echo $_SESSION['name']?>" ></div><br>
-                            
-                            <label class="form_title" for="email">Email:</label>
-                            <div><input class="uk-input uk-form-large" name='email' type="email" placeholder="<?php echo $_SESSION['email']?>"></div><br>
-                            
-                            <label class="form_title" for="phone">Số điện thoại:</label>
-                            <div><input class="uk-input uk-form-large" name='phone' type="number" placeholder="<?php echo $_SESSION['phone']?>"></div> <br>
-  
-                            <label class="form_title" for="phone">Nhập lại mật khẩu cũ:</label>
-                            <div><input class="uk-input uk-form-large" name='oldpwd' type="password" required></div> <br>
-  
-                            <label class="form_title" for="phone">Mật khẩu mới:</label>
-                            <div><input class="uk-input uk-form-large" name='newpwd' type="password" placeholder=""></div> <br>
+            <div class="row gx-4">
+                <div class="col-md-6">
+                    <div class="block-form uk-margin-medium-top">
+                        <div class="section-title">
+                          <div class="uk-h2">Chỉnh sửa thông tin cá nhân</div>
+                        </div>
+                        <div class="section-content">
+                            <form action="" method='POST'>
+                                <span><b class="form_title">User ID: </b> <?php echo $_SESSION['id']?></span>  <br><br>
+                                <label class="form_title" for="name">Tên khách hàng:</label>
+                                <div><input class="uk-input uk-form-large" name='name' type="text" id='name' placeholder="<?php echo $_SESSION['name']?>" ></div><br>
+                                
+                                <label class="form_title" for="email">Email:</label>
+                                <div><input class="uk-input uk-form-large" name='email' type="email" placeholder="<?php echo $_SESSION['email']?>"></div><br>
+                                
+                                <label class="form_title" for="phone">Số điện thoại:</label>
+                                <div><input class="uk-input uk-form-large" name='phone' type="number" placeholder="<?php echo $_SESSION['phone']?>"></div> <br>
+      
+                                <label class="form_title" for="phone">Nhập lại mật khẩu cũ:</label>
+                                <div><input class="uk-input uk-form-large" name='oldpwd' type="password" required></div> <br>
+      
+                                <label class="form_title" for="phone">Mật khẩu mới:</label>
+                                <div><input class="uk-input uk-form-large" name='newpwd' type="password" placeholder=""></div> <br>
 
-                            </div>
-                            <div><input class="uk-button uk-button-large" type="submit" name='submit' value="Lưu thay đổi"></div>
-                            
-                        </form>
+                                </div>
+                                <div><input class="uk-button uk-button-large" type="submit" name='submit' value="Lưu thay đổi"></div>
+                                
+                            </form>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Lịch sử đơn hàng -->
-                <div class="block-form uk-margin-medium-top" style="margin-left: 180px;">
+                </div><div class="uk-container">
+                <div class="block-form uk-margin-medium-top">
                     <div class="section-title">
                         <div class="uk-h2">Lịch sử đơn hàng</div>
                     </div>
